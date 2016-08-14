@@ -1,0 +1,11 @@
+config_secret.json
+Environments/
+# Django stuff:
+*.log
+*.pot
+db.sqlite3
+local_settings.py
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+.env

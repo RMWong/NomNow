@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="eng">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width = device-width, initial-scale= 1">
+<head>
+	<script src="/static/home/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="/static/home/bootstrap/dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/static/home/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/home/assets/css/home.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:800i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<script src="/static/home/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/static/home/tag-it/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
+	<link href="/static/home/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+	<link href="/static/home/tag-it/css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+	<link href="/static/home/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+	<script src="/static/home/bootstrap-star-rating/js/star-rating.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#search-keywords').tagit({
+				placeholderText: "Search by keywords"
+			});
+		});
+
+    // initialize rating defaults
+    $("#input-id").rating();
+
+  </script>
+  <title>Life's short, eat now!</title>
+</head>
+
+<body>
+	<div  id="container">
+		<!-- HEADER -->
+		<div class="page-header text-center" id="top-header">
+			<h1>NomNow</h1>
+			Stop thinking and start eating!
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-2">
+			</div>
+
+			<div class="col-lg-8 col-md-6 col-sm-6 col-xs-8 text-center">
+
+				<form method="post" action="/home/result/">
+					{% csrf_token %}
+					<ul id="search-keywords" name="keywords" value="{{ source.keywords }}">
+					</ul>
+
+					<button type="button" id="minimum-rating" class="btn btn-default">
+						Minimum Rating
+					</button>
+
+					<div id="rating" hidden>
+						<input id="input-id" type="text" class="rating" data-size="xs" data-show-caption="false" name="rating" value="{{ source.rating }}">
+					</div>
+
+					<!-- &nbsp; <br>
+					<input type="text" id="location-text" name="location" placeholder="Location" value="{{ source.location }}"> -->
+					<!-- TODO: currently default to Vancouver, plan on using Google Places API -->
+
+					<br> &nbsp; <br>
+
+					<button id="submit" class="btn btn-danger">I'm Feeling Hungry</button>
+
+					<br> &nbsp; <br>
+				</form>
+
+				<form action="/home/clear/">
+					<button id="reset" class="btn btn-danger">Reset</button>
+				</form>
+
+			</div>
+
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-2">
+			</div>
+		</div>
+		<!-- TODO: display Restaurant info with link and description -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="restaurant-info" class="text-center">
+					<h2>
+						{{ name }}
+						{{ no_results }}
+					</h2>
+					<div id="yelp-rating">
+						{% autoescape off %} {{ rating_stars }} {% endautoescape%}
+					</div>
+
+					<div id="restaurant-image" {{ hidden }}>
+						<ul class="img">
+							<li>
+								{% autoescape off %} {{ restaurant_yelp_url }} {% endautoescape %}
+								{% autoescape off %} {{ restaurant_photo_url }} {% endautoescape%}
+								<span class="text-content"><span>Interested? View on Yelp!</span></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div id="powered-by-yelp">
+					{% autoescape off %} {{ yelp_powered }} {% endautoescape%}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<div class="navbar navbar-fixed-bottom"></div>
+
+
+
+	<!-- SCRIPT -->
+	<script>
+		$(document).ready(function() {
+
+		});
+		$('#minimum-rating').click(function() {
+			$('#minimum-rating').hide();
+			$('#rating').show();
+		});
+
+	</script>
+</body>
+
+
+</html>

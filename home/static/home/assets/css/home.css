@@ -1,0 +1,112 @@
+body {
+  background-color: #EFEFEF;
+  height: 100%;
+}
+
+
+.jumbotron {
+  color: #031424;
+}
+
+#top-header {
+  font-family: 'Open Sans', sans-serif, italic;
+  color: #EFEFEF; /*#B93A32*/
+  border:black;
+  margin-top: 0;
+  font-size: 14;
+}
+
+h1 {
+  font-family: 'Open Sans', sans-serif, italic;
+  color: #EFEFEF; /*#B93A32*/
+  border:black;
+  margin-top: 0;
+  font-size: 70px;
+}
+
+.btn btn-danger, .btn btn-danger:hover {
+  background-color: #;
+}
+
+.page-header,
+.page-header h1 {
+  margin-top: 0;
+  background-color: #d9534f;
+}
+
+.glyphicon-star, .glyphicon-star-empty {
+  color: #d9534f;
+}
+
+#restaurant-info {
+  font-family: 'Roboto', sans-serif;
+  padding-top: 10px;
+  height: 300px;
+}
+
+#location-text {
+  margin-top: 15px;
+}
+
+#rating {
+  margin-top: 15px;
+  margin-bottom: -25px;
+}
+
+#minimum-rating {
+  margin-top: 7px;
+}
+
+#restaurant-image {
+  padding-top: 20px;
+}
+
+#yelp-rating {
+  padding-top: 10px;
+}
+
+#powered-by-yelp {
+  padding-top: 20px;
+}
+
+ul.img {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+ul.img li {
+  display: inline-block;
+  height: 400px;
+  margin: 0 1em 1em 0;
+  position: relative;
+  width: 600px;
+}
+
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: #EFEFEF;
+  cursor: pointer;
+  display: table;
+  height: 400px;
+  position: absolute;
+  top: 0;
+  width: 600px;
+  opacity: 0;
+  font-size: 50px;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+
+ul.img li:hover span.text-content {
+  opacity: 1;
+}
+
+span.text-content span {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
