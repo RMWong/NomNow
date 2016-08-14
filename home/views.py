@@ -12,7 +12,7 @@ from .models import RestaurantFinder
 # Create your views here.
 def index(request):
     hidden = "hidden"
-    return render(request, 'home/index.html', {'hiddem': hidden})
+    return render(request, 'home/index.html', {'hidden': hidden})
 
 
 def result(request):

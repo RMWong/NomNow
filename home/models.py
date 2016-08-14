@@ -10,20 +10,15 @@ import os
 
 class RestaurantFinder(models.Model):
 
-    name = ''
-    rating = ''
-    rating_stars = ''
-    image_url = ''
-    url = ''
+    def __init__(self):
+        self.name = ''
+        self.rating = ''
+        self.rating_stars = ''
+        self.image_url = ''
+        self.url = ''
 
     def search(self, request):
-        result = ''
         if request.method=='POST':
-            # with io.open('config_secret.json') as cred:
-            #     creds = json.load(cred)
-            #     auth = Oauth1Authenticator(**creds)
-            #     client = Client(auth)
-
             consumer_key = os.environ['YELP_CONSUMER_KEY']
             consumer_secret =  os.environ['YELP_CONSUMER_SECRET']
             token = os.environ['YELP_TOKEN']
@@ -73,17 +68,10 @@ class RestaurantFinder(models.Model):
                 response_rating = businesses[index].rating
                 print(businesses[index].name)
                 if self.hasMinimumRating(input_rating, response_rating):
-                    # can random.choice choose a value where it uses an
-                    # index that is skipped at this point?
                     restaurants[restaurant_index] = businesses[index]
                     restaurant_index += 1
 
             if not restaurants:
-                self.name = ''
-                self.rating = ''
-                self.rating_stars = ''
-                self.image_url = ''
-                self.url = ''
                 return self
 
             chosen_restaurant = random.choice(restaurants)
