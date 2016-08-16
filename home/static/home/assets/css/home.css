@@ -110,3 +110,5 @@ span.text-content span {
   text-align: center;
   vertical-align: middle;
 }
+
+.ui-helper-hidden-accessible { display:none; }
