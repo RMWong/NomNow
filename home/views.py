@@ -19,11 +19,22 @@ def index(request):
 
 
 def result(request):
+    # TODO: refactor and come up with a better way of rendering this library
+    google_places_library = "<script src='https://maps.googleapis.com/maps/api/js?key="+os.environ['GOOGLE_MAPS_KEY']+"&libraries=places&callback=initAutocomplete'async defer></script>"
+    hidden = 'hidden'
+
+    # TODO: refactor this
+    if request.method == 'POST':
+        lat = request.POST.get("lat")
+        lng = request.POST.get("lng")
+        print(lat)
+        print(lng)
+        if lat == '' or lng == '':
+            return render(request, 'home/index.html', {'location_required': 'Please enter a location to proceed', 'hidden': hidden, 'google_places_library': google_places_library})
+
     restaurant_finder = RestaurantFinder()
     result = restaurant_finder.search(request)
     name = result.name
-    # TODO: refactor and come up with a better way of rendering this library
-    google_places_library = "<script src='https://maps.googleapis.com/maps/api/js?key="+os.environ['GOOGLE_MAPS_KEY']+"&libraries=places&callback=initAutocomplete'async defer></script>"
 
     if not name:
         hidden = "hidden"
