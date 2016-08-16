@@ -30,7 +30,9 @@ class RestaurantFinder(models.Model):
             keywords = request.POST.getlist("tags", [])
 
             input_rating = request.POST.get("rating")
-            location = request.POST.get("location")
+
+            lat = request.POST.get("lat")
+            lng = request.POST.get("lng")
 
             keywords_filter = ""
 
@@ -49,7 +51,7 @@ class RestaurantFinder(models.Model):
                     'term' : keywords_filter,
                     'offset': offset,
                     'limit' : 20,
-                    'sort' : 2, #had to turn off this sort to yield more results
+                    #'sort' : 2, had to turn off this sort to yield more results
                     'category_filter': 'restaurants'
                     # category_filter only has some supported filters
                     # https://www.yelp.com/developers/documentation/v2/all_category_list
@@ -57,8 +59,12 @@ class RestaurantFinder(models.Model):
                     # inavlid_parameter exception
                     # category_filter to restrict to restaurants
                 }
+                # TODO: more robust error handling
+                if (lat != "" and lng != ""):
+                    response = client.search_by_coordinates(lat,lng, **params)
+                else:
+                    return self
 
-                response = client.search_by_bounding_box(49.213687, -123.22197, 49.293288, -123.038464, **params)
                 businesses += response.businesses
 
             restaurants = {}
@@ -83,7 +89,6 @@ class RestaurantFinder(models.Model):
             self.url = chosen_restaurant.url
 
         return self
-
 
     def hasMinimumRating(self, input_rating, response_rating):
         return float(input_rating) <= float(response_rating)

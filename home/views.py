@@ -21,6 +21,7 @@ def result(request):
     name = result.name
     if not name:
         return render(request, 'home/index.html', {'no_results': 'Sorry, there are no results using this search criteria!'})
+    # TODO: error message for missing location
     else:
         rating = result.rating
         rating_stars = result.rating_stars
