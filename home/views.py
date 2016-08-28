@@ -45,6 +45,9 @@ def result(request):
     # Keep the location in the form
     location = request.POST.get("location")
 
+    # Keep the rating in the form
+    rating = request.POST.get("rating")
+
     if not name:
         hidden = "hidden"
         return render(request, 'home/index.html', {'no_results': 'Sorry, there are no results using this search criteria!',
@@ -55,7 +58,6 @@ def result(request):
             'lng': lng})
     # TODO: error message for missing location
     else:
-        rating = result.rating
         rating_stars = result.rating_stars
         rating_stars = "<img src=" + rating_stars + " />"
         poweredByYelpImg = "/static/home/assets/images/yelp_powered_btn_dark.png"

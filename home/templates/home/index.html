@@ -58,7 +58,7 @@
 					</button>
 
 					<div id="rating" hidden>
-						<input id="input-id" type="text" class="rating" data-size="xs" data-show-caption="false" name="rating" value="{{ source.rating }}">
+						<input id="input-id" type="text" class="rating" data-size="xs" data-show-caption="false" name="rating" value="{{ source.rating }}{{ rating }}">
 					</div>
 
 					&nbsp; <br>
@@ -133,6 +133,11 @@
 		var componentForm = {
 			latlng: 'lat_long'
 		};
+
+		if ($('.rating').val() > 0) {
+			$('#minimum-rating').hide();
+			$('#rating').show();
+		}
 
 		function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
