@@ -72,7 +72,6 @@ class RestaurantFinder(models.Model):
             restaurant_index = 0
             for index in range(len(businesses)):
                 response_rating = businesses[index].rating
-                print(businesses[index].name)
                 if self.hasMinimumRating(input_rating, response_rating):
                     restaurants[restaurant_index] = businesses[index]
                     restaurant_index += 1

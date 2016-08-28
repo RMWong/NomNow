@@ -64,7 +64,7 @@ def result(request):
         poweredByYelpImg = "<img src=" + poweredByYelpImg + " />"
         restaurant_photo_url = result.image_url # defaults to 100x100
         restaurant_photo_url = restaurant_photo_url.replace("/ms.jpg", "/l.jpg")  # resize to large
-        restaurant_photo_url = "<img src=" + restaurant_photo_url + ">"
+        restaurant_photo_url = "<img src=" + restaurant_photo_url + " class='img-responsive'>"
         restaurant_yelp_url = result.url
         restaurant_yelp_url = "<a href=" + restaurant_yelp_url + ">"
 
