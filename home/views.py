@@ -10,13 +10,11 @@ import os
 import json
 from .models import RestaurantFinder
 
-# Create your views here.
 def index(request):
     hidden = "hidden"
     google_places_library = "<script src='https://maps.googleapis.com/maps/api/js?key="+os.environ['GOOGLE_MAPS_KEY']+"&libraries=places&callback=initAutocomplete'async defer></script>"
 
     return render(request, 'home/index.html', {'google_places_library': google_places_library, 'hidden': hidden})
-
 
 def result(request):
     # TODO: refactor and come up with a better way of rendering this library
@@ -24,11 +22,12 @@ def result(request):
     hidden = 'hidden'
 
     # TODO: refactor this
+    lat = ""
+    lng = ""
+
     if request.method == 'POST':
         lat = request.POST.get("lat")
         lng = request.POST.get("lng")
-        print(lat)
-        print(lng)
         if lat == '' or lng == '':
             return render(request, 'home/index.html', {'location_required': 'Please enter a location to proceed', 'hidden': hidden, 'google_places_library': google_places_library})
 
@@ -36,9 +35,24 @@ def result(request):
     result = restaurant_finder.search(request)
     name = result.name
 
+    # Keep keyword tags in the form
+    keyword_tags = request.POST.getlist("tags", [])
+    keywords = ""
+
+    for keyword in keyword_tags:
+        keywords += "<li>" + keyword + "</li>"
+
+    # Keep the location in the form
+    location = request.POST.get("location")
+
     if not name:
         hidden = "hidden"
-        return render(request, 'home/index.html', {'no_results': 'Sorry, there are no results using this search criteria!', 'hidden': hidden, 'google_places_library': google_places_library})
+        return render(request, 'home/index.html', {'no_results': 'Sorry, there are no results using this search criteria!',
+            'hidden': hidden, 'google_places_library': google_places_library,
+            'keywords': keywords,
+            'location': location,
+            'lat': lat,
+            'lng': lng})
     # TODO: error message for missing location
     else:
         rating = result.rating
@@ -53,6 +67,10 @@ def result(request):
         restaurant_yelp_url = "<a href=" + restaurant_yelp_url + ">"
 
         return render(request, 'home/index.html', {
+            'keywords': keywords,
+            'location': location,
+            'lat': lat,
+            'lng': lng,
             'name': 'How about trying out ' + name + '?', 'rating' : rating,
             'rating_stars' : rating_stars,
             'yelp_powered': poweredByYelpImg,

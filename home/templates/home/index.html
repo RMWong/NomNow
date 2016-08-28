@@ -50,6 +50,7 @@
 				<form method="post" action="/home/result/">
 					{% csrf_token %}
 					<ul id="search-keywords" name="keywords" value="{{ source.keywords }}">
+						{% autoescape off %} {{ keywords }} {% endautoescape %}
 					</ul>
 
 					<button type="button" id="minimum-rating" class="btn btn-default">
@@ -60,16 +61,12 @@
 						<input id="input-id" type="text" class="rating" data-size="xs" data-show-caption="false" name="rating" value="{{ source.rating }}">
 					</div>
 
-					<!-- &nbsp; <br>
-					<input type="text" id="location-text" name="location" placeholder="Location" value="{{ source.location }}"> -->
-					<!-- TODO: currently default to Vancouver, plan on using Google Places API -->
 					&nbsp; <br>
 
 					<div id="location-field">
-						<input id="autocomplete" placeholder="Location"
-					  type="text" name="location"></input>
-					  <input id="lat" name="lat" value="{{ source.lat }}" hidden></input>
-					  <input id="lng" name="lng" value="{{ source.lng }}" hidden></input>
+					  <input id="autocomplete" placeholder="Location" type="text" name="location" onkeydown="if($('.pac-container').is(':visible') && event.keyCode == 13) {event.preventDefault();}" value="{{source.location}}{{location}}"></input>
+					  <input id="lat" name="lat" value="{{ source.lat }}{{lat}}" hidden></input>
+					  <input id="lng" name="lng" value="{{ source.lng }}{{lng}}" hidden></input>
 					</div>
 
 					&nbsp; <br>
@@ -88,7 +85,6 @@
 			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-2">
 			</div>
 		</div>
-		<!-- TODO: display Restaurant info with link and description -->
 
 		<div class="row">
 			<div class="col-lg-12">
@@ -157,8 +153,6 @@
     	$('#lat').val(lat);
     	$('#lng').val(lng);
     }
-
-    // TODO: write an alert when locations field is blank -- "Must enter a location"
 
   </script>
 
