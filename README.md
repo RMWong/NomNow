@@ -2,7 +2,7 @@
 
 NomNow is a restaurant recommending web application used to eliminate the hassle of indecisively filtering through long lists of restaurants when deciding where to eat. 
 
-To run this project:
+####Running the project:
 
 1. Run "git clone git@github.com:RMWong/NomNow.git".
 
@@ -14,7 +14,7 @@ To run this project:
 
 Note: Ensure that the DEBUG variable in settings.py is set to False in production environments. Otherwise, set the DEBUG variable to True in development.
 
-If deploying to Heroku:
+####Deploying to Heroku:
 
 1. Specify the Python version in runtime.txt.
 
